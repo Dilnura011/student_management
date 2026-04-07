@@ -157,9 +157,9 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
         <td><?= $item['phone']; ?></td>
         <td><?= $item['address']; ?></td>
         <td class="actions">
-          <button class="view">Ko‘rish</button>
-          <button class="edit">Tahrirlash</button>
-          <button class="delete">O‘chirish</button>
+          <a href="#" class="view">Ko‘rish</a>
+          <a href="#" class="edit">Tahrirlash</a>
+          <a href="delete.php?id=<?=$item['id']; ?>" class="delete" onclick="return confirm('O\'chirasizmi?')">O‘chirish</a>
         </td>
       </tr>
         
