@@ -12,7 +12,7 @@ $data->execute();
 //ma'lumotni olish
 $students = $data->fetchAll(PDO::FETCH_ASSOC);
 
-
+$cnt = 1;
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +46,6 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
     .header h2 {
       margin: 0;
     }
-
     .add-btn {
       background: #28a745;
       color: #fff;
@@ -55,6 +54,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
       border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
+      text-decoration: none;
     }
 
     .add-btn:hover {
@@ -67,7 +67,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
     }
 
     thead {
-      background: #f1f1f1;
+      background: #72c6f7;
     }
 
     th, td {
@@ -81,7 +81,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
       background: #f9f9f9;
     }
 
-    .actions button {
+    a{
       margin: 2px;
       padding: 5px 8px;
       border: none;
@@ -93,15 +93,18 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
 
     .view {
       background: #007bff;
+      text-decoration: none;
     }
 
     .edit {
       background: #ffc107;
       color: #000;
+      text-decoration: none;
     }
 
     .delete {
       background: #dc3545;
+      text-decoration: none;
     }
 
     .actions button:hover {
@@ -130,7 +133,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
   <div class="header">
     <h2>Studentlar ro‘yxati</h2>
-    <a class="add-btn" href="create.php">+ Student qo‘shish</a>
+    <a class="add-btn" href="create.php">Student qo‘shish</a>
   </div>
 
   <table>
@@ -149,7 +152,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
     <tbody>
       <?php foreach($students as $item):?>
         <tr>
-        <td><?= $item['id']; ?></td>
+        <td><?= $cnt++; ?></td>
         <td><?= $item['first_name']; ?></td>
         <td><?= $item['last_name']; ?></td>
         <td><?= $item['age']; ?></td>
@@ -158,7 +161,7 @@ $students = $data->fetchAll(PDO::FETCH_ASSOC);
         <td><?= $item['address']; ?></td>
         <td class="actions">
           <a href="#" class="view">Ko‘rish</a>
-          <a href="#" class="edit">Tahrirlash</a>
+          <a href="edit.php?id=<?=$item['id'];?>" class="edit">Tahrirlash</a>
           <a href="delete.php?id=<?=$item['id']; ?>" class="delete" onclick="return confirm('O\'chirasizmi?')">O‘chirish</a>
         </td>
       </tr>
