@@ -67,7 +67,7 @@ $cnt = 1;
     }
 
     thead {
-      background: #72c6f7;
+      background-color: #72c6f7;
     }
 
     th, td {
@@ -75,10 +75,6 @@ $cnt = 1;
       text-align: center;
       border-bottom: 1px solid #ddd;
       font-size: 14px;
-    }
-
-    tr:hover {
-      background: #f9f9f9;
     }
 
     a{
@@ -133,7 +129,7 @@ $cnt = 1;
 <div class="container">
   <div class="header">
     <h2>Studentlar ro‘yxati</h2>
-    <a class="add-btn" href="create.php">Student qo‘shish</a>
+    <a class="add-btn" href="create.php">+ Student qo‘shish</a>
   </div>
 
   <table>
@@ -160,7 +156,7 @@ $cnt = 1;
         <td><?= $item['phone']; ?></td>
         <td><?= $item['address']; ?></td>
         <td class="actions">
-          <a href="#" class="view">Ko‘rish</a>
+          <a href="show.php?id=<?=$item['id'];?>" class="view">Ko‘rish</a>
           <a href="edit.php?id=<?=$item['id'];?>" class="edit">Tahrirlash</a>
           <a href="delete.php?id=<?=$item['id']; ?>" class="delete" onclick="return confirm('O\'chirasizmi?')">O‘chirish</a>
         </td>
