@@ -3,7 +3,7 @@ include '../config/db.php';
 
 $id = $_GET["id"];
 
-$sql = "SELECT s.first_name, s.last_name, s.age, s.phone, s.address, c.class_name FROM students s JOIN classes c ON s.class_id = c.id WHERE s.id = ?";
+$sql = "SELECT * FROM orders WHERE id = ?";
 
 $data = $conn->prepare($sql);
 $data->execute([$id]);
@@ -14,7 +14,7 @@ $student = $data->fetch();
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Student Ma'lumotlari</title>
+    <title>Kitob Ma'lumotlari</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,27 +78,14 @@ $student = $data->fetch();
 <body>
 
 <div class="container">
-    <h2>Student ma'lumotlari</h2>
+    <h2>Order ma'lumotlari</h2>
 
     <div class="info">
-        <div class="label">First Name:</div>
-        <?=$student['first_name']; ?>
+        <div class="label">Student id:</div>
+        <?=$student['student_id']; ?>
 
-        <div class="label">Last Name:</div>
-        <?=$student['last_name']; ?>
-
-        <div class="label">Age:</div>
-        <?=$student['age']; ?>
-
-        <div class="label">Class Name:</div>
-        <?=$student['class_name']; ?>
-
-        <div class="label">Phone:</div>
-        <?=$student['phone']; ?>
-
-        <div class="label">Address:</div>
-        <?=$student['address']; ?>
-    </div>
+        <div class="label">Note:</div>
+        <?=$student['note']; ?>
 
     <div class="actions">
         <a href="index.php" class="btn btn-back">Orqaga</a>

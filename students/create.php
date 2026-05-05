@@ -1,5 +1,14 @@
+<?php
+include '../config/db.php';
+$sql = 'SELECT * FROM classes';
+$data = $conn->prepare($sql);
+$data->execute();
+$classes = $data->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <title>Student Form</title>
@@ -17,7 +26,7 @@
             background: #fff;
             padding: 25px 30px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 350px;
         }
 
@@ -36,7 +45,8 @@
             font-weight: bold;
         }
 
-        input, textarea {
+        input,
+        textarea {
             width: 100%;
             padding: 8px 10px;
             border: 1px solid #ccc;
@@ -63,47 +73,94 @@
         button:hover {
             background: #45a049;
         }
+
+        .select-box {
+            position: relative;
+            width: 250px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background: white;
+            font-size: 16px;
+            appearance: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+
+        select:hover {
+            background: #c2d8f6;
+        }
+
+        select:focus {
+            box-shadow: 0 0 0 2px #38bdf8;
+        }
+
+        .select-box::after {
+            content: "▼";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #38bdf8;
+            pointer-events: none;
+        }
+
+        option {
+            background: white;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="form-container">
-    <h2>Student Qo‘shish</h2>
-    <form action="store.php" method="POST">
-        
-        <div class="form-group">
-            <label for="first_name">Ism</label>
-            <input type="text" id="first_name" name="first_name" required>
-        </div>
+    <div class="form-container">
+        <h2>Student Qo‘shish</h2>
+        <form action="store.php" method="POST">
 
-        <div class="form-group">
-            <label for="last_name">Familiya</label>
-            <input type="text" id="last_name" name="last_name" required>
-        </div>
+            <div class="form-group">
+                <label for="first_name">Ism</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
 
-        <div class="form-group">
-            <label for="age">Yosh</label>
-            <input type="number" id="age" name="age" required>
-        </div>
+            <div class="form-group">
+                <label for="last_name">Familiya</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
 
-        <div class="form-group">
-            <label for="class_name">Sinf</label>
-            <input type="text" id="class_name" name="class_name" required>
-        </div>
+            <div class="form-group">
+                <label for="age">Yosh</label>
+                <input type="number" id="age" name="age" required>
+            </div>
 
-        <div class="form-group">
-            <label for="phone">Telefon</label>
-            <input type="text" id="phone" name="phone" placeholder="+998..." required>
-        </div>
+            <div class="form-group">
+                <label for="class_id">Sinf</label>
+                <select name="class_id" id="">
+                    <?php foreach ($classes as $item): ?>
+                        <option value="<?= $item['id'] ?>"><?= $item['class_name'] ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="address">Manzil</label>
-            <textarea id="address" name="address"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="text" id="phone" name="phone" placeholder="+998..." required>
+            </div>
 
-        <button type="submit">Saqlash</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="address">Manzil</label>
+                <textarea id="address" name="address"></textarea>
+            </div>
+
+            <button type="submit">Saqlash</button>
+        </form>
+    </div>
 
 </body>
+
 </html>

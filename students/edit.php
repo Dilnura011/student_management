@@ -7,7 +7,8 @@ $sql = "SELECT * FROM students WHERE id = :id";
 $data = $conn->prepare($sql);
 $data->execute([':id'=>$id]);
 $student = $data->fetch(PDO::FETCH_ASSOC);
-
+$classes = $conn->query("SELECT * FROM classes")
+                 ->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +76,49 @@ $student = $data->fetch(PDO::FETCH_ASSOC);
         button:hover {
             background: #45a049;
         }
+
+        .select-box {
+    position: relative;
+    width: 250px;
+}
+
+select {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 16px;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+select:hover {
+    background: #c2d8f6;
+}
+
+select:focus {
+    box-shadow: 0 0 0 2px #38bdf8;
+}
+
+/* Custom arrow */
+.select-box::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #38bdf8;
+    pointer-events: none;
+}
+
+/* option style (cheklangan bo‘ladi browserga bog‘liq) */
+option {
+    background: white;
+}
     </style>
 </head>
 <body>
@@ -99,8 +143,15 @@ $student = $data->fetch(PDO::FETCH_ASSOC);
         </div>
 
         <div class="form-group">
-            <label for="class_name">Sinf</label>
-            <input type="text" id="class_name" name="class_name" required value="<?= $student['class_name'] ?>">
+            <label for="class_id">Sinf</label>
+            <select name="class_id">
+                <?php foreach ($classes as $class): ?>
+                    <option value="<?= $class['id'] ?>"
+                        <?php if ($class['id'] == $student['class_id']) echo 'selected'; ?>>
+                        <?= $class['class_name'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
 
         <div class="form-group">

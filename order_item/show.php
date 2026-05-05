@@ -3,7 +3,7 @@ include '../config/db.php';
 
 $id = $_GET["id"];
 
-$sql = "SELECT s.first_name, s.last_name, s.age, s.phone, s.address, c.class_name FROM students s JOIN classes c ON s.class_id = c.id WHERE s.id = ?";
+$sql = "SELECT * FROM order_item WHERE id = ?";
 
 $data = $conn->prepare($sql);
 $data->execute([$id]);
@@ -14,7 +14,7 @@ $student = $data->fetch();
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Student Ma'lumotlari</title>
+    <title>Order item ma'lumotlari</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,27 +78,20 @@ $student = $data->fetch();
 <body>
 
 <div class="container">
-    <h2>Student ma'lumotlari</h2>
+    <h2>Order item ma'lumotlari</h2>
 
     <div class="info">
-        <div class="label">First Name:</div>
-        <?=$student['first_name']; ?>
+        <div class="label">Book id:</div>
+        <?=$student['book_id']; ?>
 
-        <div class="label">Last Name:</div>
-        <?=$student['last_name']; ?>
+        <div class="label">Order id:</div>
+        <?=$student['order_id']; ?>
 
-        <div class="label">Age:</div>
-        <?=$student['age']; ?>
+        <div class="label">From date:</div>
+        <?=$student['from_date']; ?>
 
-        <div class="label">Class Name:</div>
-        <?=$student['class_name']; ?>
-
-        <div class="label">Phone:</div>
-        <?=$student['phone']; ?>
-
-        <div class="label">Address:</div>
-        <?=$student['address']; ?>
-    </div>
+        <div class="label">To date:</div>
+        <?=$student['to_date']; ?>
 
     <div class="actions">
         <a href="index.php" class="btn btn-back">Orqaga</a>

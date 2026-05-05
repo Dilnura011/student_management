@@ -3,7 +3,7 @@ include '../config/db.php';
 
 $id = $_GET["id"];
 
-$sql = "SELECT s.first_name, s.last_name, s.age, s.phone, s.address, c.class_name FROM students s JOIN classes c ON s.class_id = c.id WHERE s.id = ?";
+$sql = "SELECT * FROM library WHERE id = ?";
 
 $data = $conn->prepare($sql);
 $data->execute([$id]);
@@ -14,7 +14,7 @@ $student = $data->fetch();
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <title>Student Ma'lumotlari</title>
+    <title>Kitob Ma'lumotlari</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,26 +78,29 @@ $student = $data->fetch();
 <body>
 
 <div class="container">
-    <h2>Student ma'lumotlari</h2>
+    <h2>Kitob ma'lumotlari</h2>
 
     <div class="info">
-        <div class="label">First Name:</div>
-        <?=$student['first_name']; ?>
+        <div class="label">Book Name:</div>
+        <?=$student['book_name']; ?>
 
-        <div class="label">Last Name:</div>
-        <?=$student['last_name']; ?>
+        <div class="label">Author:</div>
+        <?=$student['author']; ?>
 
-        <div class="label">Age:</div>
-        <?=$student['age']; ?>
+        <div class="label">Number:</div>
+        <?=$student['number']; ?>
 
-        <div class="label">Class Name:</div>
-        <?=$student['class_name']; ?>
+        <div class="label">Count:</div>
+        <?=$student['count']; ?>
 
-        <div class="label">Phone:</div>
-        <?=$student['phone']; ?>
+        <div class="label">About:</div>
+        <?=$student['about']; ?>
 
-        <div class="label">Address:</div>
-        <?=$student['address']; ?>
+        <div class="label">Publisher:</div>
+        <?=$student['publisher']; ?>
+
+        <div class="label">Date:</div>
+        <?=$student['date_of_publication']; ?>
     </div>
 
     <div class="actions">
